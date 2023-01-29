@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/react"
 const UserMap = () => {
     return (
         <CommonLayout>
-            <Text>サンプル</Text>
+            <Text color="coconatsPink">サンプル</Text>
         </CommonLayout>
     )
 }

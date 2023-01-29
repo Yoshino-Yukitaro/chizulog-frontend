@@ -4,8 +4,8 @@ import { useState } from "react"
 const Header = () => {
     const [isLogin, setInsLogin] = useState(false);
     return (
-        <HStack bgColor="blue.300" w="100vw" h="50px" padding="30px 20px">
-            <Text fontSize="3xl" fontWeight="bold">ちずろぐ</Text>
+        <HStack bgColor="poolBlue" w="100vw" h="50px" padding="30px 20px">
+            <Text fontSize="3xl" fontWeight="bold" color="mashmallowMint" fontFamily="m_plus2">ちずろぐ</Text>
             <Spacer />
             <Avatar />
         </HStack>
