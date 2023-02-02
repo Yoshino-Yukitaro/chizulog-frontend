@@ -2,6 +2,11 @@
 
 import {
   Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,6 +15,7 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
 import { GoogleMap, Marker, MarkerF, useLoadScript } from '@react-google-maps/api'
 import { useCallback, useRef } from 'react'
@@ -76,62 +82,99 @@ const UserMap = () => {
             <ModalContent>
               <ModalCloseButton />
               <ModalBody>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
-                <p>あ</p>
+                <VStack marginTop='50px'>
+                  <Card w={{ base: '98%', md: '90%' }} direction='row'>
+                    <Image
+                      objectFit='cover'
+                      boxSize={{ base: '100px', md: '150px' }}
+                      src=''
+                      fallbackSrc='https://via.placeholder.com/150'
+                      alt='Caffe Latte'
+                    />
+                    <VStack alignItems='start'>
+                      <CardBody padding={{ base: '8px' }}>
+                        <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+                          タイトル
+                        </Text>
+                      </CardBody>
+                      <CardFooter padding={{ base: '8px' }}>
+                        <Text>2023年2月2日</Text>
+                      </CardFooter>
+                    </VStack>
+                  </Card>
+                  <Card w={{ base: '98%', md: '90%' }} direction='row'>
+                    <Image
+                      objectFit='cover'
+                      boxSize={{ base: '100px', md: '150px' }}
+                      src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                      alt='Caffe Latte'
+                    />
+                    <VStack alignItems='start'>
+                      <CardBody padding={{ base: '8px' }}>
+                        <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+                          タイトル
+                        </Text>
+                      </CardBody>
+                      <CardFooter padding={{ base: '8px' }}>
+                        <Text>2023年2月2日</Text>
+                      </CardFooter>
+                    </VStack>
+                  </Card>
+                  <Card w={{ base: '98%', md: '90%' }} direction='row'>
+                    <Image
+                      objectFit='cover'
+                      maxW={{ base: '100px', md: '200px' }}
+                      src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                      alt='Caffe Latte'
+                    />
+                    <VStack alignItems='start'>
+                      <CardBody padding={{ base: '8px' }}>
+                        <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+                          タイトル
+                        </Text>
+                      </CardBody>
+                      <CardFooter padding={{ base: '8px' }}>
+                        <Text>2023年2月2日</Text>
+                      </CardFooter>
+                    </VStack>
+                  </Card>
+                  <Card w={{ base: '98%', md: '90%' }} direction='row'>
+                    <Image
+                      objectFit='cover'
+                      maxW={{ base: '100px', md: '200px' }}
+                      src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                      alt='Caffe Latte'
+                    />
+                    <VStack alignItems='start'>
+                      <CardBody padding={{ base: '8px' }}>
+                        <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+                          タイトル
+                        </Text>
+                      </CardBody>
+                      <CardFooter padding={{ base: '8px' }}>
+                        <Text>2023年2月2日</Text>
+                      </CardFooter>
+                    </VStack>
+                  </Card>
+                  <Card w={{ base: '98%', md: '90%' }} direction='row'>
+                    <Image
+                      objectFit='cover'
+                      maxW={{ base: '100px', md: '200px' }}
+                      src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                      alt='Caffe Latte'
+                    />
+                    <VStack alignItems='start'>
+                      <CardBody padding={{ base: '8px' }}>
+                        <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+                          タイトル
+                        </Text>
+                      </CardBody>
+                      <CardFooter padding={{ base: '8px' }}>
+                        <Text>2023年2月2日</Text>
+                      </CardFooter>
+                    </VStack>
+                  </Card>
+                </VStack>
               </ModalBody>
               <ModalFooter>
                 <Button>追加</Button>
