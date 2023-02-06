@@ -1,6 +1,7 @@
 /** @format */
 
-import { Button, HStack, Spacer, VStack } from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
+import { Button, HStack, IconButton, Spacer, VStack } from '@chakra-ui/react'
 import { MouseEvent } from 'react'
 
 const MapWindowPanel = () => {
@@ -13,8 +14,8 @@ const MapWindowPanel = () => {
       <Spacer />
       <HStack w='100%'>
         <Spacer />
-        <Button>追加</Button>
-        <Button onClick={getCoordinates}>スナップ</Button>
+        <Button>編集する</Button>
+        <IconButton aria-label='カメラで記録' onClick={getCoordinates} icon={<AddIcon />} />
       </HStack>
     </VStack>
   )
