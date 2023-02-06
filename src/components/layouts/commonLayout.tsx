@@ -1,16 +1,25 @@
-import { VStack } from "@chakra-ui/react"
-import { ReactNode } from "react"
-import Header from "../parts/commons/header/header"
+/** @format */
+
+import { VStack } from '@chakra-ui/react'
+import Head from 'next/head'
+import { ReactNode } from 'react'
+import Header from '../parts/commons/header/header'
 
 interface Props {
-    children : ReactNode
+  children: ReactNode
 }
 const CommonLayout = ({ children }: Props) => {
-    return (
-        <VStack>
-            <Header />
-            {children}
-        </VStack>
-    )
+  return (
+    <>
+      <Head>
+        <title>サンプルタイトル</title>
+        <meta name='description' content='サンプルです' />
+      </Head>
+      <VStack as='main'>
+        <Header />
+        {children}
+      </VStack>
+    </>
+  )
 }
 export default CommonLayout
