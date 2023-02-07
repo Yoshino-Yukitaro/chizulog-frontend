@@ -7,8 +7,8 @@ import { IndexedDB } from '../infrastructure/indexedDB'
 export class LocalMemoryMarkerRepository {
   private indexedDB
   private static localMemoryMarkerRepository = new LocalMemoryMarkerRepository()
-  constructor() {
-    this.indexedDB = new IndexedDB()
+  private constructor() {
+    this.indexedDB = IndexedDB.getInstance()
   }
   static getRepository() {
     return this.localMemoryMarkerRepository
