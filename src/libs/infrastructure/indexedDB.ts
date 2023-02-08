@@ -10,7 +10,7 @@ export class IndexedDB extends Dexie {
   private constructor() {
     super('local_memory_db')
     this.version(1).stores({
-      memory_marker: ';+id, lad, lng, created_at, updated_at',
+      memory_marker: '++id, lad, lng, created_at, updated_at',
       memory_log: '++id, memory_marker_id, title, description, image_url, created_at, updated_at',
     })
   }

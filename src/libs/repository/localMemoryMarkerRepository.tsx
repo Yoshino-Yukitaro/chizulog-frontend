@@ -13,18 +13,27 @@ export class LocalMemoryMarkerRepository {
   static getRepository() {
     return this.localMemoryMarkerRepository
   }
+  save({ lad, lng, created_at, updated_at }: IMemoryMarker): PromiseExtended<number> {
+    const addParam = {
+      lad,
+      lng,
+      created_at,
+      updated_at,
+    }
+    return this.indexedDB.memory_marker.add(addParam)
+  }
   findById(id: number): PromiseExtended<IMemoryMarker | undefined> {
-    return this.indexedDB.memory_marker.get({ id: id })
+    return this.indexedDB.memory_marker.get({ id })
   }
   findAll(): PromiseExtended<IMemoryMarker[]> {
     return this.indexedDB.memory_marker.toArray()
   }
   update({ id, lad, lng, updated_at }: IMemoryMarker): PromiseExtended<number> {
-    if (!id) throw new Error('idがundefiedです')
+    if (!id) throw new Error(`idが${id}です`)
     const updateParam = {
-      lad: lad,
-      lng: lng,
-      updated_at: updated_at,
+      lad,
+      lng,
+      updated_at,
     }
     return this.indexedDB.memory_marker.update(id, updateParam)
   }
