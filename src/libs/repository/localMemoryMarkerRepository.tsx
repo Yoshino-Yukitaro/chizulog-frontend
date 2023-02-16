@@ -1,7 +1,6 @@
 /** @format */
 
 import { IMemoryMarker } from '@/types/indexedDB'
-import { PromiseExtended } from 'dexie'
 import { IndexedDB } from '../infrastructure/indexedDB'
 
 export class LocalMemoryMarkerRepository {
@@ -13,31 +12,30 @@ export class LocalMemoryMarkerRepository {
   static getRepository() {
     return this.localMemoryMarkerRepository
   }
-  save({ lad, lng, created_at, updated_at }: IMemoryMarker): PromiseExtended<number> {
-    const addParam = {
-      lad,
-      lng,
-      created_at,
-      updated_at,
-    }
-    return this.indexedDB.memory_marker.add(addParam)
+  async save({ lat, lng, created_at, updated_at }: IMemoryMarker): Promise<number> {
+    if (this.indexedDB.hasFailed()) throw Error('データベースはOpenしていないようです。')
+    return await this.indexedDB.memory_marker.add({ lat, lng, created_at, updated_at })
   }
-  findById(id: number): PromiseExtended<IMemoryMarker | undefined> {
-    return this.indexedDB.memory_marker.get({ id })
+  async findById(id: number): Promise<IMemoryMarker | undefined> {
+    if (this.indexedDB.hasFailed()) return undefined
+    return await this.indexedDB.memory_marker.get({ id: id })
   }
-  findAll(): PromiseExtended<IMemoryMarker[]> {
-    return this.indexedDB.memory_marker.toArray()
+  async findAll(): Promise<IMemoryMarker[]> {
+    if (this.indexedDB.hasFailed()) return []
+    return await this.indexedDB.memory_marker.toArray()
   }
-  update({ id, lad, lng, updated_at }: IMemoryMarker): PromiseExtended<number> {
-    if (!id) throw new Error(`idが${id}です`)
+  async update({ id, lat, lng, updated_at }: IMemoryMarker): Promise<number> {
+    if (!id) throw new Error('idがundefiedです')
+    if (this.indexedDB.hasFailed()) return 0
     const updateParam = {
-      lad,
-      lng,
-      updated_at,
+      lat: lat,
+      lng: lng,
+      updated_at: updated_at,
     }
-    return this.indexedDB.memory_marker.update(id, updateParam)
+    return await this.indexedDB.memory_marker.update(id, updateParam)
   }
-  delete(id: number) {
+  async delete(id: number) {
+    if (this.indexedDB.hasFailed()) return
     this.indexedDB.memory_marker.delete(id)
   }
 }

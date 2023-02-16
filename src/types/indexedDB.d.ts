@@ -2,7 +2,7 @@
 
 export interface IMemoryMarker {
   id?: number
-  lad: number
+  lat: number
   lng: number
   created_at: Date
   updated_at: Date

@@ -1,7 +1,9 @@
 /** @format */
 
+import { LocalMemoryMarkerRepository } from '@/libs/repository/localMemoryMarkerRepository'
 import { Spinner } from '@chakra-ui/react'
 import { GoogleMap, useLoadScript } from '@react-google-maps/api'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { useCallback, useRef } from 'react'
 import MapWindowPanel from './mapWindowPanel'
 import MemoryMarker from './memoryMarker'
@@ -19,6 +21,8 @@ const ChizulogMap = () => {
   const onMapLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map
   }, [])
+  const localMemoryMarkerRepository = LocalMemoryMarkerRepository.getRepository()
+  const memoryMarkers = useLiveQuery(() => localMemoryMarkerRepository.findAll())
   if (loadError) return <p>読み込みに失敗しました。</p>
   if (!isLoaded) return <Spinner />
   return (
@@ -32,8 +36,16 @@ const ChizulogMap = () => {
       }}
       onLoad={onMapLoad}
     >
-      <MemoryMarker lat={43} lng={141} />
-      <MemoryMarker lat={42} lng={142} />
+      {memoryMarkers?.map(memoryMarker => (
+        <MemoryMarker
+          key={memoryMarker.id!}
+          id={memoryMarker.id!}
+          lat={memoryMarker.lat}
+          lng={memoryMarker.lng}
+        />
+      ))}
+      <MemoryMarker id={123} lat={43} lng={141} />
+      <MemoryMarker id={456} lat={42} lng={142} />
       <MapWindowPanel />
     </GoogleMap>
   )

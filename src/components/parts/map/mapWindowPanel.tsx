@@ -1,5 +1,7 @@
 /** @format */
 
+import { LocalMemoryLogRepository } from '@/libs/repository/localMemoryLogRepository'
+import { LocalMemoryMarkerRepository } from '@/libs/repository/localMemoryMarkerRepository'
 import { CameraType } from '@/types/camera'
 import { AddIcon } from '@chakra-ui/icons'
 import { Button, HStack, IconButton, Spacer, VStack } from '@chakra-ui/react'
@@ -26,14 +28,41 @@ interface Buf {
 
 const MapWindowPanel = () => {
   const [image, setImage] = useState('')
-  const [buf, setBuf] = useState<Buf[]>([])
   const [isCameraUp, setIsCameraUp] = useState(false)
+  const localMemoryMarkerRepository = LocalMemoryMarkerRepository.getRepository()
+  const localMemoryLogRepository = LocalMemoryLogRepository.getRepository()
   const createSnapshot = (e: MouseEvent<HTMLButtonElement>) => {
+    const postMarker = async (position: GeolocationPosition) => {
+      try {
+        const now = DateTime.now().toJSDate()
+        const memoryMarker = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          created_at: now,
+          updated_at: now,
+        }
+        const markerId = await localMemoryMarkerRepository.save(memoryMarker)
+        console.log(`markerId=${markerId}`)
+
+        const memoryLog = {
+          memory_marker_id: markerId,
+          title: '未設定',
+          description: '',
+          image_url: image,
+          created_at: now,
+          updated_at: now,
+        }
+        const logId = await localMemoryLogRepository.save(memoryLog)
+        console.log(`logId=${logId}`)
+      } catch (error) {
+        throw Error('値の保存に失敗しました')
+      }
+    }
+
     const photoImage = cameraRef.current?.takePhoto()
-    if (!photoImage) return
-    navigator.geolocation.getCurrentPosition(location => console.log(location.coords.latitude))
-    // 地位情報とかをセットする
+    if (!photoImage) throw Error('画像の撮影に失敗しました。')
     setImage(photoImage)
+    navigator.geolocation.getCurrentPosition(postMarker)
     setIsCameraUp(false)
   }
   const cameraRef = useRef<CameraType>(null)

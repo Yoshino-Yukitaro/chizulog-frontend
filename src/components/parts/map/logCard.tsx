@@ -1,6 +1,6 @@
 /** @format */
 
-import { Card, CardBody, CardFooter, Image, Text, VStack } from '@chakra-ui/react'
+import { Button, Card, CardBody, CardFooter, Image, Spacer, Text, VStack } from '@chakra-ui/react'
 import { DateTime } from 'luxon'
 
 interface Props {
@@ -19,14 +19,16 @@ const LogCard = ({ title, datetime, contentUrl, imageUrl }: Props) => {
         fallbackSrc='https://via.placeholder.com/150'
         alt={title}
       />
-      <VStack alignItems='start'>
+      <VStack alignItems='start' w='100%'>
         <CardBody padding={{ base: '8px' }}>
           <Text as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
             {title}
           </Text>
         </CardBody>
-        <CardFooter padding={{ base: '8px' }}>
+        <CardFooter padding={{ base: '8px' }} w='100%'>
           <Text>{datetime.toLocaleString(DateTime.DATE_FULL)}</Text>
+          <Spacer />
+          <Button _hover={{ bgColor: 'coconatsPink' }}>:</Button>
         </CardFooter>
       </VStack>
     </Card>
