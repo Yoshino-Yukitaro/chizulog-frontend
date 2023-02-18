@@ -1,5 +1,6 @@
 /** @format */
 
+import { LocalMemoryLogRepository } from '@/libs/repository/localMemoryLogRepository'
 import {
   Button,
   Modal,
@@ -12,18 +13,20 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { MarkerF } from '@react-google-maps/api'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { DateTime } from 'luxon'
 import LogCard from './logCard'
 
-const datetime = DateTime.now()
-
 interface Props {
+  id: number
   lat: number
   lng: number
 }
 
-const MemoryMarker = ({ lat, lng }: Props) => {
+const MemoryMarker = ({ id, lat, lng }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const localMemoryLogRepository = LocalMemoryLogRepository.getRepository()
+  const memoryLogs = useLiveQuery(() => localMemoryLogRepository.findAllByMemoryMarkerId(id))
   return (
     <>
       <MarkerF
@@ -45,46 +48,19 @@ const MemoryMarker = ({ lat, lng }: Props) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack marginTop='50px'>
-              <LogCard title='タイトル' contentUrl='' datetime={datetime} />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
-              <LogCard
-                title='タイトル'
-                contentUrl=''
-                imageUrl='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                datetime={datetime}
-              />
+              {memoryLogs?.map(log => (
+                <LogCard
+                  key={log.id}
+                  title={log.title}
+                  contentUrl=''
+                  imageUrl={log.image_url}
+                  datetime={DateTime.fromJSDate(log.created_at)}
+                />
+              ))}
             </VStack>
           </ModalBody>
           <ModalFooter>
+            <Button>削除</Button>
             <Button>追加</Button>
           </ModalFooter>
         </ModalContent>
