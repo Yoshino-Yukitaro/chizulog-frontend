@@ -17,8 +17,6 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { DateTime } from 'luxon'
 import LogCard from './logCard'
 
-const datetime = DateTime.now()
-
 interface Props {
   id: number
   lat: number
